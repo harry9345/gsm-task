@@ -1,3 +1,5 @@
+// in here i just paste the diffrent way i try to make the api calls to geot and post
+
 // ------ main.js
 // const getData = () => {
 //   console.log("Get Data Log");

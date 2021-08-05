@@ -4,20 +4,24 @@ import Marker from "./Marker";
 import GoogleMapReact from "google-map-react";
 
 export default function GMap() {
+  // for now i use hardcoded lat and lng , but the componenet receive them state from props
+  // to test the map resizing it self UNCOMMENT the object bellow
   const [latLgn, setLatLgn] = useState([
-    { lat: 58.378, lng: 26.728 },
-    { lat: 59.439, lng: 24.73 },
-    { lat: 59.352, lng: 24.055 },
-    { lat: 59.435, lng: 24.743 },
-    { lat: 59.449, lng: 24.738 },
-    { lat: 58.391, lng: 24.495 },
-    { lat: 59.347, lng: 26.359 },
+    // { location: "Tartu", lat: 58.378, lng: 26.728 },
+    { location: "Pirita", lat: 59.4749, lng: 24.8725 },
+    { location: "Nomme", lat: 59.3807, lng: 24.6995 },
+    { location: "Kalamaja", lat: 59.4497, lng: 24.7387 },
+    { location: "Teliskivi", lat: 59.4393, lng: 24.7303 },
+    // { location: "Parnu", lat: 58.3917, lng: 24.4953 },
+    // { location: "Narva", lat: 59.3797, lng: 28.1791 },
+    { location: "Tallinn", lat: 59.437, lng: 24.7536 },
   ]);
 
+  // centered the map on  tallinn
   const defaultProps = {
     center: {
-      lat: 59.436962,
-      lng: 24.753574,
+      lat: 59.437,
+      lng: 24.7536,
     },
     zoom: 11,
   };
@@ -32,6 +36,7 @@ export default function GMap() {
     bindResizeListener(map, maps, bounds);
   };
 
+  // Re-center map when resizing the window
   const bindResizeListener = (map, maps, bounds) => {
     maps.event.addDomListenerOnce(map, "idle", () => {
       maps.event.addDomListener(window, "resize", () => {
@@ -40,6 +45,7 @@ export default function GMap() {
     });
   };
 
+  // Return map bounds based on list of places
   const getMapBounds = (map, maps, pins) => {
     const bounds = new maps.LatLngBounds();
 

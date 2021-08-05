@@ -11,16 +11,7 @@ export default function Main() {
     console.log(task);
   }, [task]);
 
-  // const getData = (newTask) => {
-  //   setTask(() => {
-  //     return [...task, newTask];
-  //   });
-  // };
-
-  // useInterval(getData, 5000);
-
   const getData = () => {
-    console.log("Get Data Log");
     let config = {
       method: "get",
       url: "https://gsmtasks.com/api/tasks/tasks/",
@@ -29,19 +20,15 @@ export default function Main() {
     try {
       const response = config;
       console.log(response);
+      // handeling the state
     } catch (error) {
       console.log("error", error);
     }
-    // fetch(
-    //   "https://gsmtasks.com/api/tasks/tasks/?account=tokenfdd73ab50cf234b45815b34a6339b7ca967601f5"
-    // ).then((response) => {
-    //   console.log("response", response);
-    //   setTask(response);
-    //   console.log(task);
-    // });
   };
 
+  // for polling the data every 5 second
   useInterval(getData, 5000);
+
   return (
     <Container fluid className="mt-3">
       <Row>

@@ -20,5 +20,6 @@ export default function useInterval(callback, delay) {
   }, [delay]);
 }
 
-// Making setInterval Declarative with React Hooks
-//https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+// by using this, we are enable to control the delay dynamicly
+//  Making setInterval Declarative with React Hooks
+// resource : https://overreacted.io/making-setinterval-declarative-with-react-hooks/
