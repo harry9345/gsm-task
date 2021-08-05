@@ -5,10 +5,35 @@ import Button from "react-bootstrap/Button";
 export default function TaskForm(props) {
   const [taskState, setTask] = useState();
 
-  const postData = (e) => {
+  // const postData = (e) => {
+  //   e.preventDefault();
+  //   props.getData(taskState);
+  // };
+
+  async function postData(e) {
     e.preventDefault();
-    props.getData(taskState);
-  };
+    let config = {
+      method: "post",
+      url: "https://gsmtasks.com/api/tasks/tasks/",
+      body: JSON.stringify({
+        acount:
+          "https://gsmtasks.com/api/tasks/accounts/fdd73ab50cf234b45815b34a6339b7ca967601f5/",
+        category: "assignment",
+        address: {
+          raw_address: taskState,
+        },
+      }),
+      headers: {
+        authorization: "Token fdd73ab50cf234b45815b34a6339b7ca967601f5",
+      },
+    };
+    try {
+      const response = config;
+      console.log(response);
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
   return (
     <div>
       <Form>

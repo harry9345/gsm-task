@@ -1,4 +1,4 @@
-// // ------ main.js
+// ------ main.js
 // const getData = () => {
 //   console.log("Get Data Log");
 //   let config = {
@@ -21,7 +21,7 @@
 //   // });
 // };
 
-// //--------- taskform.js
+//--------- taskform.js
 
 // async function postData(e) {
 //   e.preventDefault();
