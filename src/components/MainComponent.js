@@ -18,7 +18,6 @@ export default function Main() {
       })
       .then((res) => {
         setTask(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }

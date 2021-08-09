@@ -4,25 +4,24 @@ import Marker from "./Marker";
 import GoogleMapReact from "google-map-react";
 
 export default function GMap(props) {
-  const [latLgn, setLatLgn] = useState();
-
-  useEffect(() => {
-    for (let item of props.tasks) {
-      setLatLgn(() => {
-        return item;
-      });
-    }
-    console.log(latLgn);
-  }, [props.tasks, latLgn]);
-
-  // centered the map on  tallinn
-  const tallinn = {
+  const [latLgn, setLatLgn] = useState([]);
+  const [tallinn, SetTallinn] = useState({
     center: {
       lat: 59.437,
       lng: 24.7536,
     },
     zoom: 11,
-  };
+  });
+
+  let coords = [];
+  useEffect(() => {
+    for (let item of props.tasks) {
+      if (item.address.location) {
+        coords.push(item.address.location.coordinates);
+      }
+    }
+    setLatLgn(coords);
+  }, [props.tasks]);
 
   // Fit map to its bounds after the api is loaded
   const apiIsLoaded = (map, maps, latlgn) => {
@@ -48,12 +47,7 @@ export default function GMap(props) {
     const bounds = new maps.LatLngBounds();
 
     pins.forEach((pin) => {
-      bounds.extend(
-        new maps.LatLng(
-          pin.address.location.coordinates[0],
-          pin.address.location.coordinates[1]
-        )
-      );
+      bounds.extend(new maps.LatLng(pin[1], pin[0]));
     });
     return bounds;
   };
@@ -61,21 +55,17 @@ export default function GMap(props) {
   return (
     <div>
       <div style={{ height: "100vh", width: "100%" }}>
-        {/* <GoogleMapReact
+        <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyB97teau2ZKw8JZu_zll6Sgtm6WqaQJPk4" }}
           defaultCenter={tallinn.center}
           defaultZoom={tallinn.zoom}
-          // onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, latLgn)}
+          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, latLgn)}
           yesIWantToUseGoogleMapApiInternals
         >
-          {latLgn.map((item) => (
-            <Marker
-              lat={item.address.location.coordinates[0]}
-              lng={item.address.location.coordinates[1]}
-              key={item.id}
-            />
+          {latLgn.map((item, index) => (
+            <Marker lat={item[1]} lng={item[0]} key={index} />
           ))}
-        </GoogleMapReact> */}
+        </GoogleMapReact>
       </div>
     </div>
   );
