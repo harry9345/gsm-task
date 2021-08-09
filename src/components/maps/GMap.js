@@ -5,12 +5,12 @@ import GoogleMapReact from "google-map-react";
 
 export default function GMap(props) {
   const [latLgn, setLatLgn] = useState([]);
-  const [tallinn, SetTallinn] = useState({
+  const [tallinn] = useState({
     center: {
-      lat: 59.437,
       lng: 24.7536,
+      lat: 59.437,
     },
-    zoom: 11,
+    zoom: 10,
   });
 
   let coords = [];
