@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# This project is not ready yet 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+it will be updated in couple hours
 
 ## Available Scripts
 
