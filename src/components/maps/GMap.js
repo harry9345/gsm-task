@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Marker from "./Marker";
 
 import GoogleMapReact from "google-map-react";
 
-export default function GMap() {
-  // for now i use hardcoded lat and lng , but the componenet receive them state from props
-  // to test the map resizing it self UNCOMMENT the object bellow
-  const [latLgn, setLatLgn] = useState([
-    // { location: "Tartu", lat: 58.378, lng: 26.728 },
-    { location: "Pirita", lat: 59.4749, lng: 24.8725 },
-    { location: "Nomme", lat: 59.3807, lng: 24.6995 },
-    { location: "Kalamaja", lat: 59.4497, lng: 24.7387 },
-    { location: "Teliskivi", lat: 59.4393, lng: 24.7303 },
-    // { location: "Parnu", lat: 58.3917, lng: 24.4953 },
-    // { location: "Narva", lat: 59.3797, lng: 28.1791 },
-    { location: "Tallinn", lat: 59.437, lng: 24.7536 },
-  ]);
+export default function GMap(props) {
+  const [latLgn, setLatLgn] = useState();
+
+  useEffect(() => {
+    for (let item of props.tasks) {
+      setLatLgn(() => {
+        return item;
+      });
+    }
+    console.log(latLgn);
+  }, [props.tasks, latLgn]);
 
   // centered the map on  tallinn
-  const defaultProps = {
+  const tallinn = {
     center: {
       lat: 59.437,
       lng: 24.7536,
@@ -50,7 +48,12 @@ export default function GMap() {
     const bounds = new maps.LatLngBounds();
 
     pins.forEach((pin) => {
-      bounds.extend(new maps.LatLng(pin.lat, pin.lng));
+      bounds.extend(
+        new maps.LatLng(
+          pin.address.location.coordinates[0],
+          pin.address.location.coordinates[1]
+        )
+      );
     });
     return bounds;
   };
@@ -58,17 +61,21 @@ export default function GMap() {
   return (
     <div>
       <div style={{ height: "100vh", width: "100%" }}>
-        <GoogleMapReact
+        {/* <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyB97teau2ZKw8JZu_zll6Sgtm6WqaQJPk4" }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, latLgn)}
+          defaultCenter={tallinn.center}
+          defaultZoom={tallinn.zoom}
+          // onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, latLgn)}
           yesIWantToUseGoogleMapApiInternals
         >
-          {latLgn.map((item, index) => (
-            <Marker lat={item.lat} lng={item.lng} key={index} />
+          {latLgn.map((item) => (
+            <Marker
+              lat={item.address.location.coordinates[0]}
+              lng={item.address.location.coordinates[1]}
+              key={item.id}
+            />
           ))}
-        </GoogleMapReact>
+        </GoogleMapReact> */}
       </div>
     </div>
   );
