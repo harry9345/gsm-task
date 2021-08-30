@@ -13,8 +13,8 @@ export default function GMap(props) {
     zoom: 10,
   });
 
-  let coords = [];
   useEffect(() => {
+    let coords = [];
     for (let item of props.tasks) {
       if (item.address.location) {
         coords.push(item.address.location.coordinates);
@@ -44,19 +44,22 @@ export default function GMap(props) {
 
   // Return map bounds based on list of places
   const getMapBounds = (map, maps, pins) => {
-    const bounds = new maps.LatLngBounds();
+    let bounds;
+    setTimeout(() => {
+      bounds = new maps.LatLngBounds();
 
-    pins.forEach((pin) => {
-      bounds.extend(new maps.LatLng(pin[1], pin[0]));
-    });
-    return bounds;
+      pins.forEach((pin) => {
+        bounds.extend(new maps.LatLng(pin.lat, pin.lng));
+      });
+      return bounds;
+    }, 6000);
   };
 
   return (
     <div>
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyB97teau2ZKw8JZu_zll6Sgtm6WqaQJPk4" }}
+          bootstrapURLKeys={{ key: "YOUR API KEY" }}
           defaultCenter={tallinn.center}
           defaultZoom={tallinn.zoom}
           onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, latLgn)}
