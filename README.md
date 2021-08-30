@@ -1,6 +1,6 @@
-# This project is not ready yet 
-
-it will be updated in couple hours
+# Dont add new address
+As my Api key in GSM task is expired, please do not add new address in.
+Please dont forget to add you Google map Api key in GMap.js.
 
 ## Available Scripts
 
