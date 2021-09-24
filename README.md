@@ -1,6 +1,7 @@
 # Dont add new address
+Please dont forget to add you Google map Api key in GMap.js file.
 As my Api key in GSM task is expired, please do not add new address in.
-Please dont forget to add you Google map Api key in GMap.js.
+
 
 ## Available Scripts
 
